@@ -16,7 +16,7 @@ public class NotificationListenerService extends android.service.notification.No
 
         String pack = sbn.getPackageName();
 
-        if(pack.equals("com.spotify.music")){
+        /*if(pack.equals("com.spotify.music")){
             Notification.Action[] actions = sbn.getNotification().actions;
             if(actions.length == 3){
                 ActivityManager am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
@@ -31,15 +31,15 @@ public class NotificationListenerService extends android.service.notification.No
                     }
                 });
             }
-        }
+        }*/
 
-        /*if(pack.equals("com.spotify.music")){
+        if(pack.equals("com.spotify.music")){
             Notification.Action[] actions = sbn.getNotification().actions;
             if(actions.length == 3)
                 Muter.mute(getApplicationContext());
             else
                 Muter.unMute(getApplicationContext());
-        }*/
+        }
     }
 
 }
