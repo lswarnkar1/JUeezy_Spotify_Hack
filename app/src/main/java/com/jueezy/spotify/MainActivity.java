@@ -54,18 +54,9 @@ public class MainActivity extends AppCompatActivity {
         sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-            if (!isNotificationServiceEnabled()) {
-                    startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
-              }
-                    } else {
-
-                }
-            }
-        });
-
-        sw2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+                    if (sw2.isChecked()) {
+                        sw2.setChecked(false);
+                    }
                     if (!isNotificationServiceEnabled()) {
                         startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
                     }
@@ -75,18 +66,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (sw1.isChecked()) sw2.setChecked(false);
-        if (sw2.isChecked()) sw1.setChecked(false);
+        sw2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    if (sw1.isChecked()) {
+                        sw1.setChecked(false);
+                    }
+                    if (!isNotificationServiceEnabled()) {
+                        startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
+                    }
+                } else {
 
+                }
+            }
+        });
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        if (!isNotificationServiceEnabled()){
+        if (!isNotificationServiceEnabled()) {
             sw1.setChecked(false);
             sw2.setChecked(false);
-        }else {
+        } else {
 
         }
     }
