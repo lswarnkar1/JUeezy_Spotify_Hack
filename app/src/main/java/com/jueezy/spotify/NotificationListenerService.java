@@ -16,30 +16,34 @@ public class NotificationListenerService extends android.service.notification.No
 
         String pack = sbn.getPackageName();
 
-        /*if(pack.equals("com.spotify.music")){
-            Notification.Action[] actions = sbn.getNotification().actions;
-            if(actions.length == 3){
-                ActivityManager am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
-                am.killBackgroundProcesses("com.spotify.music");
+        if (RootUtil.isDeviceRooted()) {
+            Log.v("DC", "Rooted");
 
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent playSpotify = new Intent("com.spotify.mobile.android.ui.widget.NEXT");
-                        playSpotify.setPackage("com.spotify.music");
-                        sendBroadcast(playSpotify);
-                    }
-                });
+            if (pack.equals("com.spotify.music")) {
+                Notification.Action[] actions = sbn.getNotification().actions;
+                if (actions.length == 3) {
+                    ActivityManager am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
+                    am.killBackgroundProcesses("com.spotify.music");
+
+                    new Handler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent playSpotify = new Intent("com.spotify.mobile.android.ui.widget.NEXT");
+                            playSpotify.setPackage("com.spotify.music");
+                            sendBroadcast(playSpotify);
+                        }
+                    });
+                }
             }
-        }*/
-
-        if(pack.equals("com.spotify.music")){
-            Notification.Action[] actions = sbn.getNotification().actions;
-            if(actions.length == 3)
-                Muter.mute(getApplicationContext());
-
-            else
-                Muter.unMute(getApplicationContext());
+        } else {
+            Log.v("DC", "Non-Rooted");
+            if (pack.equals("com.spotify.music")) {
+                Notification.Action[] actions = sbn.getNotification().actions;
+                if (actions.length == 3)
+                    Muter.mute(getApplicationContext());
+                else
+                    Muter.unMute(getApplicationContext());
+            }
         }
     }
 
