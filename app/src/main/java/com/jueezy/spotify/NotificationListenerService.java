@@ -37,6 +37,7 @@ public class NotificationListenerService extends android.service.notification.No
             Notification.Action[] actions = sbn.getNotification().actions;
             if(actions.length == 3)
                 Muter.mute(getApplicationContext());
+
             else
                 Muter.unMute(getApplicationContext());
         }
