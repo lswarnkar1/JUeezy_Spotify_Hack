@@ -33,29 +33,14 @@
         android:textAlignment="gravity">
 
         <Switch
-            android:id="@+id/switch1"
+            android:id="@+id/muter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Switch1"
+            android:text="Muter"
             android:textAlignment="gravity"
             tools:text="sw1" />
 
-        <CheckBox
-            android:id="@+id/facts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="8dp"
-            android:text="Facts" />
-
-        <CheckBox
-            android:id="@+id/music"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="8dp"
-            android:text="Music" />
 
     </LinearLayout>
 
@@ -77,11 +62,11 @@
         android:padding="8dp">
 
         <Switch
-            android:id="@+id/switch2"
+            android:id="@+id/killer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Switch2"
+            android:text="Killer"
             tools:text="sw2" />
 
     </LinearLayout>
