@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView rootDescription;
     LinearLayout leftLayout, rightLayout;
+    View view;
     Switch sw1, sw2;
 
     @Override
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         rootDescription = (TextView) findViewById(R.id.root_description);
         leftLayout = (LinearLayout) findViewById(R.id.left_layout);
         rightLayout = (LinearLayout) findViewById(R.id.right_layout);
+        view = (View) findViewById(R.id.view);
         sw1 = (Switch) findViewById(R.id.muter);
         sw2 = (Switch) findViewById(R.id.killer);
 
@@ -45,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Your Decice is Non-Rooted", LENGTH_LONG).show();
             rootDescription.setText("Your Devive is Non-Rooted");
-            /*rightLayout.setVisibility(View.GONE);*/
+            /*rightLayout.setVisibility(View.GONE);
+            view.setVisibility(View.GONE);*/
         }
 
         sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -71,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if (sw1.isChecked()) sw2.setChecked(false);
+        if (sw2.isChecked()) sw1.setChecked(false);
+
     }
 
     @Override
@@ -80,8 +87,7 @@ public class MainActivity extends AppCompatActivity {
             sw1.setChecked(false);
             sw2.setChecked(false);
         }else {
-            sw1.setChecked(true);
-            sw2.setChecked(true);
+
         }
     }
 
