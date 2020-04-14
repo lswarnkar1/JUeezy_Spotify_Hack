@@ -12,7 +12,7 @@ public class NotificationListenerService extends android.service.notification.No
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
-        Log.v("LAVISH_WA", "received");
+        Log.v("DC", "received");
 
         String pack = sbn.getPackageName();
 
