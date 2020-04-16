@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Your Decice is Non-Rooted", LENGTH_LONG).show();
             rootDescription.setText("Your Devive is Non-Rooted");
-            /*rightLayout.setVisibility(View.GONE);
+            /*rightLayout.setVisibility(View.GONE);     // If  Device is Non Rooted only One option Shown.
             view.setVisibility(View.GONE);*/
         }
 
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPostResume() {
         super.onPostResume();
 
-        sw1.setChecked(sharedPreferences.getBoolean("sw1", true));
+        sw1.setChecked(sharedPreferences.getBoolean("sw1", false));
         sw2.setChecked(sharedPreferences.getBoolean("sw2", false));
         if (sw1.isChecked()) {
             sw1.setChecked(sharedPreferences.getBoolean("sw1", true));
