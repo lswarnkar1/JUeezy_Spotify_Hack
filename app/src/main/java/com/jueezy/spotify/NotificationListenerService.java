@@ -46,11 +46,6 @@ public class NotificationListenerService extends android.service.notification.No
         }
 
         if (isMute) {
-
-            Log.d("DC", "DUBUG isMute NL " + isMute);
-            Log.d("DC", "DUBUG isKill NL " + isKill);
-            Toast.makeText(this, "Non rooted  " + isMute + isKill, Toast.LENGTH_SHORT).show();
-            Log.v("DC", "Non Rooted");
             if (pack.equals("com.spotify.music")) {
                 Notification.Action[] actions = sbn.getNotification().actions;
                 if (actions.length == 3)
