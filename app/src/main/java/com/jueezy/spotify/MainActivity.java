@@ -3,7 +3,9 @@ package com.jueezy.spotify;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Layout;
@@ -22,16 +24,17 @@ import static android.widget.Toast.LENGTH_LONG;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String SHARED_PREF = "Data_Saved";
     TextView rootDescription;
     LinearLayout leftLayout, rightLayout;
+    SharedPreferences sharedPreferences;
     View view;
     Switch sw1, sw2;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         rootDescription = (TextView) findViewById(R.id.root_description);
         leftLayout = (LinearLayout) findViewById(R.id.left_layout);
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         sw1 = (Switch) findViewById(R.id.muter);
         sw2 = (Switch) findViewById(R.id.killer);
 
+        sharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
 
         if (RootUtil.isDeviceRooted()) {
             Toast.makeText(this, "Your Decice is Rooted", LENGTH_LONG).show();
@@ -53,15 +57,24 @@ public class MainActivity extends AppCompatActivity {
 
         sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                 if (isChecked) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("sw1", true);
+                    editor.apply();
+                    sw1.setChecked(true);
+                    Toast.makeText(MainActivity.this, "Muter On", Toast.LENGTH_SHORT).show();
                     if (sw2.isChecked()) {
                         sw2.setChecked(false);
                     }
-                    if (!isNotificationServiceEnabled()) {
-                        startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
-                    }
                 } else {
-
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("sw1", false);
+                    editor.apply();
+                    sw1.setChecked(false);
+                }
+                if (!isNotificationServiceEnabled()) {
+                    startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
                 }
             }
         });
@@ -69,14 +82,21 @@ public class MainActivity extends AppCompatActivity {
         sw2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("sw2", true);
+                    editor.apply();
+                    sw2.setChecked(true);
                     if (sw1.isChecked()) {
                         sw1.setChecked(false);
                     }
-                    if (!isNotificationServiceEnabled()) {
-                        startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
-                    }
                 } else {
-
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("sw2", false);
+                    editor.apply();
+                    sw2.setChecked(false);
+                }
+                if (!isNotificationServiceEnabled()) {
+                    startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
                 }
             }
         });
@@ -85,6 +105,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
+
+        sw1.setChecked(sharedPreferences.getBoolean("sw1", true));
+        sw2.setChecked(sharedPreferences.getBoolean("sw2", false));
+        if (sw1.isChecked()) {
+            sw1.setChecked(sharedPreferences.getBoolean("sw1", true));
+            sw2.setChecked(sharedPreferences.getBoolean("sw2", false));
+        }
+        if (sw2.isChecked()) {
+            sw2.setChecked(sharedPreferences.getBoolean("sw2", true));
+            sw1.setChecked(sharedPreferences.getBoolean("sw1", false));
+        }
         if (!isNotificationServiceEnabled()) {
             sw1.setChecked(false);
             sw2.setChecked(false);
@@ -109,5 +140,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return false;
-    }
+    };
 }
