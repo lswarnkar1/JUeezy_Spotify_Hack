@@ -3,21 +3,29 @@ package com.jueezy.spotify;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Notification;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
+import android.widget.Toast;
 
 public class NotificationListenerService extends android.service.notification.NotificationListenerService {
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF = "Data_Saved";
+    private boolean isMute, isKill;
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
-        Log.v("DC", "received");
+        sharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
+        isMute = sharedPreferences.getBoolean("sw1", true);
+        isKill = sharedPreferences.getBoolean("sw2", false);
 
         String pack = sbn.getPackageName();
 
-        if (RootUtil.isDeviceRooted()) {
-            Log.v("DC", "Rooted");
+        if (RootUtil.isDeviceRooted() && isKill) {
 
             if (pack.equals("com.spotify.music")) {
                 Notification.Action[] actions = sbn.getNotification().actions;
@@ -35,8 +43,14 @@ public class NotificationListenerService extends android.service.notification.No
                     });
                 }
             }
-        } else {
-            Log.v("DC", "Non-Rooted");
+        }
+
+        if (isMute) {
+
+            Log.d("DC", "DUBUG isMute NL " + isMute);
+            Log.d("DC", "DUBUG isKill NL " + isKill);
+            Toast.makeText(this, "Non rooted  " + isMute + isKill, Toast.LENGTH_SHORT).show();
+            Log.v("DC", "Non Rooted");
             if (pack.equals("com.spotify.music")) {
                 Notification.Action[] actions = sbn.getNotification().actions;
                 if (actions.length == 3)
