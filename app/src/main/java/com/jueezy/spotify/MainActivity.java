@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                     editor.putBoolean("sw2", true);
                     editor.apply();
                     sw2.setChecked(true);
+                    Toast.makeText(MainActivity.this, "Killer On", Toast.LENGTH_SHORT).show();
                     if (sw1.isChecked()) {
                         sw1.setChecked(false);
                     }
