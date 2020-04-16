@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 public class RootUtil {
     public static boolean isDeviceRooted() {
-        return checkRootMethod1() || checkRootMethod2() || checkRootMethod3();
+        return (checkRootMethod1() || checkRootMethod2() || checkRootMethod3());
     }
 
     private static boolean checkRootMethod1() {
