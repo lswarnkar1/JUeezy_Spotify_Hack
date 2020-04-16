@@ -12,8 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3db23140-dd3b-4978-afe0-0bbab65c375f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/debug/app-debug.apk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/debug/output.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/debug/app-debug.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jueezy/spotify/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jueezy/spotify/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jueezy/spotify/NotificationListenerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jueezy/spotify/NotificationListenerService.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
