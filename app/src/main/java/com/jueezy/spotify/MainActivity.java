@@ -131,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
             sw1.setChecked(false);
             sw2.setChecked(false);
         }
+        adsBlocker.setText("Ads blocked :- " + (sharedPreferences.getInt("adsCounter", 0))/2);
+        songCounter.setText("Song Count :- " + (sharedPreferences.getInt("songCounter", 0))/2);
     }
 
     private boolean isNotificationServiceEnabled() {
