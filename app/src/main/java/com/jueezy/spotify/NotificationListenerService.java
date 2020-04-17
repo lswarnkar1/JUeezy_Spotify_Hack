@@ -10,11 +10,14 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class NotificationListenerService extends android.service.notification.NotificationListenerService {
     SharedPreferences sharedPreferences;
     private static final String SHARED_PREF = "Data_Saved";
+
+    private int adsCounter, songCounter;
     private boolean isMute, isKill;
 
     @Override
@@ -22,6 +25,8 @@ public class NotificationListenerService extends android.service.notification.No
         sharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
         isMute = sharedPreferences.getBoolean("sw1", true);
         isKill = sharedPreferences.getBoolean("sw2", false);
+        adsCounter = sharedPreferences.getInt("adsCounter", 0);
+        songCounter = sharedPreferences.getInt("songCounter", 0);
 
         String pack = sbn.getPackageName();
 
@@ -49,10 +54,16 @@ public class NotificationListenerService extends android.service.notification.No
             Log.d("DC", "Mute On");
             Toast.makeText(this, "Mute Option", Toast.LENGTH_SHORT).show();
             if (pack.equals("com.spotify.music")) {
+                SharedPreferences.Editor editor1 = sharedPreferences.edit();
+                editor1.putInt("songCounter", songCounter + 1);
+                editor1.apply();
                 Notification.Action[] actions = sbn.getNotification().actions;
-                if (actions.length == 3)
+                if (actions.length == 3) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt("adsCounter", adsCounter + 1);
+                    editor.apply();
                     Muter.mute(getApplicationContext());
-                else
+                } else
                     Muter.unMute(getApplicationContext());
             }
         }
