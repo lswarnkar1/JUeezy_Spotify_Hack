@@ -26,10 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String SHARED_PREF = "Data_Saved";
     private static final String ADS_COUNTER = "Ads_Counter";
-    TextView rootDescription;
+    TextView rootDescription, adsBlocker, songCounter;
     LinearLayout leftLayout, rightLayout;
     SharedPreferences sharedPreferences;
-    Integer adsCounter;
     View view;
     Switch sw1, sw2;
 
@@ -39,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         rootDescription = (TextView) findViewById(R.id.root_description);
+        adsBlocker = (TextView) findViewById(R.id.ads_block);
+        songCounter = (TextView) findViewById(R.id.song_counter);
         leftLayout = (LinearLayout) findViewById(R.id.left_layout);
         rightLayout = (LinearLayout) findViewById(R.id.right_layout);
         view = (View) findViewById(R.id.view);
@@ -46,6 +47,13 @@ public class MainActivity extends AppCompatActivity {
         sw2 = (Switch) findViewById(R.id.killer);
 
         sharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
+        SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+            adsBlocker.setText("Ads blocked :- " + (sharedPreferences.getInt("adsCounter", 0))/2);
+            songCounter.setText("Song Count :- " + (sharedPreferences.getInt("songCounter", 0))/2);
+            }
+        };
+        sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
 
         if (RootUtil.isDeviceRooted()) {
             Toast.makeText(this, "Your Decice is Rooted", LENGTH_LONG).show();
@@ -122,8 +130,6 @@ public class MainActivity extends AppCompatActivity {
         if (!isNotificationServiceEnabled()) {
             sw1.setChecked(false);
             sw2.setChecked(false);
-        } else {
-
         }
     }
 
