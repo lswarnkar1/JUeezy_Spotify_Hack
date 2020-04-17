@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         };
         sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
 
+
+
         if (RootUtil.isDeviceRooted()) {
             Toast.makeText(this, "Your Decice is Rooted", LENGTH_LONG).show();
             rootDescription.setText("Your Devive is Rooted");
