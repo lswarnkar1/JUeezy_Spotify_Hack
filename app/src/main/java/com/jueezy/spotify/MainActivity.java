@@ -25,9 +25,11 @@ import static android.widget.Toast.LENGTH_LONG;
 public class MainActivity extends AppCompatActivity {
 
     private static final String SHARED_PREF = "Data_Saved";
+    private static final String ADS_COUNTER = "Ads_Counter";
     TextView rootDescription;
     LinearLayout leftLayout, rightLayout;
     SharedPreferences sharedPreferences;
+    Integer adsCounter;
     View view;
     Switch sw1, sw2;
 
