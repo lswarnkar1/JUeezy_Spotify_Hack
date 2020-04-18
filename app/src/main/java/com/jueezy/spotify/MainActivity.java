@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
 
         rootDescription = (TextView) findViewById(R.id.root_description);
         adsBlocker = (TextView) findViewById(R.id.ads_block);
