@@ -1,3 +1,4 @@
+/*
 package com.jueezy.spotify;
 
 import android.content.BroadcastReceiver;
@@ -46,4 +47,4 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             // Sent only as a notification, your app may want to respond accordingly.
         }
     }
-}
+}*/
