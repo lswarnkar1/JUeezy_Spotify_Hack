@@ -19,6 +19,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import static android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
 import static android.widget.Toast.LENGTH_LONG;
 
@@ -36,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
 
         rootDescription = (TextView) findViewById(R.id.root_description);
         adsBlocker = (TextView) findViewById(R.id.ads_block);
@@ -55,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
-
 
 
         if (RootUtil.isDeviceRooted()) {
@@ -94,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
 
         sw2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                /*if (RootAccess.hasRootAccess()){
+                }*/
+
                 if (isChecked) {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("sw2", true);
