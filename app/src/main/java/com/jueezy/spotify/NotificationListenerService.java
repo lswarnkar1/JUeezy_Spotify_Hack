@@ -29,34 +29,48 @@ public class NotificationListenerService extends android.service.notification.No
         songCounter = sharedPreferences.getInt("songCounter", 0);
 
         String pack = sbn.getPackageName();
+        String currentSong = sbn.getNotification().extras.getCharSequence("android.text").toString();
+        currentSong = sharedPreferences.getString("currentSong", "");
+        String newSong = sbn.getNotification().extras.getCharSequence("android.text").toString();
 
         if (RootUtil.isDeviceRooted() && isKill) {
 
             if (pack.equals("com.spotify.music")) {
-                Notification.Action[] actions = sbn.getNotification().actions;
-                if (actions.length == 3) {
-                    ActivityManager am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
-                    am.killBackgroundProcesses("com.spotify.music");
+                {
+                    Notification.Action[] actions = sbn.getNotification().actions;
+                    if (actions.length == 3) {
+                        ActivityManager am = (ActivityManager) getSystemService(Activity.ACTIVITY_SERVICE);
+                        am.killBackgroundProcesses("com.spotify.music");
 
-                    new Handler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent playSpotify = new Intent("com.spotify.mobile.android.ui.widget.NEXT");
-                            playSpotify.setPackage("com.spotify.music");
-                            sendBroadcast(playSpotify);
-                        }
-                    });
+                        new Handler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent playSpotify = new Intent("com.spotify.mobile.android.ui.widget.NEXT");
+                                playSpotify.setPackage("com.spotify.music");
+                                sendBroadcast(playSpotify);
+                            }
+                        });
+                    }
                 }
             }
         }
 
         if (isMute) {
             Log.d("DC", "Mute On");
-          //  Toast.makeText(this, "Mute Option", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Mute Option", Toast.LENGTH_SHORT).show();
             if (pack.equals("com.spotify.music")) {
-                SharedPreferences.Editor editor1 = sharedPreferences.edit();
-                editor1.putInt("songCounter", songCounter + 1);
-                editor1.apply();
+
+                if (newSong.equals(currentSong)) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();     // play & Pause
+                    editor.putString("currentSong", currentSong);
+                    editor.apply();
+                } else {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("currentSong", newSong);                      // Next & Previous
+                    editor.putInt("songCounter", songCounter + 1);
+                    editor.apply();
+                }
+
                 Notification.Action[] actions = sbn.getNotification().actions;
                 if (actions.length == 3) {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
