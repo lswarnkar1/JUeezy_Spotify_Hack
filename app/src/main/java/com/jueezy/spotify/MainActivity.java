@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             adsBlocker.setText("Ads blocked :- " + (sharedPreferences.getInt("adsCounter", 0))/2);
-            songCounter.setText("Song Count :- " + (sharedPreferences.getInt("songCounter", 0))/2);
+            songCounter.setText("Song Count :- " + sharedPreferences.getInt("songCounter", 0));
             }
         };
         sharedPreferences.registerOnSharedPreferenceChangeListener(listener);
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             sw2.setChecked(false);
         }
         adsBlocker.setText("Ads blocked :- " + (sharedPreferences.getInt("adsCounter", 0))/2);
-        songCounter.setText("Song Count :- " + (sharedPreferences.getInt("songCounter", 0))/2);
+        songCounter.setText("Song Count :- " + sharedPreferences.getInt("songCounter", 0));
     }
 
     private boolean isNotificationServiceEnabled() {
