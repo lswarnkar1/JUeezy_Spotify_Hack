@@ -117,8 +117,32 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        
+        registerReceiver();
     }
 
+    private void registerReceiver(){
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.spotify.music.playbackstatechanged");
+        filter.addAction("com.spotify.music.metadatachanged");
+        filter.addAction("com.spotify.music.queuechanged");
+
+        BroadcastReceiver mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context arg0, Intent intent) {
+                String action = intent.getAction();
+
+                String trackId = intent.getStringExtra("id");
+                String artistName = intent.getStringExtra("artist");
+                String albumName = intent.getStringExtra("album");
+                String trackName = intent.getStringExtra("track");
+
+                //Do something with the data
+            }
+        };
+        registerReceiver(mReceiver, filter);
+    }
+    
     @Override
     protected void onPostResume() {
         super.onPostResume();
