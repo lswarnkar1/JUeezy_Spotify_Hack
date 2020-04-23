@@ -2,9 +2,11 @@ package com.jueezy.spotify;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -60,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (RootUtil.isDeviceRooted()) {
             Toast.makeText(this, "Your Decice is Rooted", LENGTH_LONG).show();
-            rootDescription.setText("Your Devive is Rooted");
+            rootDescription.setText("Your Device is Rooted");
         } else {
             Toast.makeText(this, "Your Decice is Non-Rooted", LENGTH_LONG).show();
-            rootDescription.setText("Your Devive is Non-Rooted");
+            rootDescription.setText("Your Device is Non-Rooted");
             rightLayout.setVisibility(View.GONE);     // If  Device is Non Rooted only One option Shown.
             view.setVisibility(View.GONE);
         }
