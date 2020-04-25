@@ -28,7 +28,7 @@
             </intent-filter>
         </service>
 
-        <receiver
+        <!--<receiver
             android:name=".MyBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
@@ -39,7 +39,7 @@
                 <action android:name="com.spotify.music.queuechanged"/>
             </intent-filter>
 
-        </receiver>
+        </receiver>-->
     </application>
 
 </manifest>

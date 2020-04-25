@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String SHARED_PREF = "Data_Saved";
     private static final String ADS_COUNTER = "Ads_Counter";
+    BroadcastReceiver mReceiver;
     TextView rootDescription, adsBlocker, songCounter;
     LinearLayout leftLayout, rightLayout;
     SharedPreferences sharedPreferences;
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         
-        registerReceiver();
+       registerReceiver();
     }
 
     private void registerReceiver(){
@@ -130,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         filter.addAction("com.spotify.music.metadatachanged");
         filter.addAction("com.spotify.music.queuechanged");
 
-        BroadcastReceiver mReceiver = new BroadcastReceiver() {
+            mReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context arg0, Intent intent) {
                 String action = intent.getAction();
@@ -145,8 +146,9 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         registerReceiver(mReceiver, filter);
+
     }
-    
+
     @Override
     protected void onPostResume() {
         super.onPostResume();
@@ -186,4 +188,10 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     };
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(mReceiver);
+    }
 }
