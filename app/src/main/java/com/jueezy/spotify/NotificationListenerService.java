@@ -33,6 +33,8 @@ public class NotificationListenerService extends android.service.notification.No
         currentSong = sharedPreferences.getString("currentSong", "");
         String newSong = sbn.getNotification().extras.getCharSequence("android.text").toString();
 
+        Log.d("DC", "Mute On ^_^");
+
         if (RootUtil.isDeviceRooted() && isKill) {
 
             if (pack.equals("com.spotify.music")) {
@@ -56,7 +58,7 @@ public class NotificationListenerService extends android.service.notification.No
         }
 
         if (isMute) {
-            Log.d("DC", "Mute On");
+            Log.d("DC", "Mute On ^_^");
             Toast.makeText(this, "Mute Option", Toast.LENGTH_SHORT).show();
             if (pack.equals("com.spotify.music")) {
 
