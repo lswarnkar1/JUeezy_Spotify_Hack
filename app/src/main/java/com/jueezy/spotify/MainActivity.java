@@ -126,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
        registerReceiver();
     }
 
+    // Functions :------------------
+
     private void registerReceiver(){
         filter = new IntentFilter();
         filter.addAction("com.spotify.music.playbackstatechanged");
@@ -139,8 +141,8 @@ public class MainActivity extends AppCompatActivity {
 
                 String trackId;
                 trackId = sharedPreferences.getString("id", "lets see");
-                Log.d("DDD", "MA1 " + trackId);
-                Toast.makeText(MainActivity.this, "out " + trackId, Toast.LENGTH_SHORT).show();
+                /*Log.d("DDD", "MA1 " + trackId);
+                Toast.makeText(MainActivity.this, "out " + trackId, Toast.LENGTH_SHORT).show();*/
                 if (trackId == null){
                     trackId = intent.getStringExtra("id");
                     Log.d("DDD", "MA2 " + trackId);
@@ -148,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                     editor1.putString("id", trackId);
                     editor1.apply();
                     trackId = sharedPreferences.getString("id", "---");
-                    Toast.makeText(MainActivity.this, "In If " + trackId, Toast.LENGTH_SHORT).show();
+                    /*Toast.makeText(MainActivity.this, "In If " + trackId, Toast.LENGTH_SHORT).show();*/
                 }
 
                 trackId = intent.getStringExtra("id");
@@ -185,6 +187,8 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mReceiver, filter);
     }
 
+
+
     private boolean isNotificationServiceEnabled() {
         String pkgName = getPackageName();
         final String flat = Settings.Secure.getString(getContentResolver(),
@@ -202,6 +206,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     };
+
+
 
     @Override
     protected void onPause() {
