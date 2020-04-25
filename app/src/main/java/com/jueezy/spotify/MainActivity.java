@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String SHARED_PREF = "Data_Saved";
     private static final String ADS_COUNTER = "Ads_Counter";
     BroadcastReceiver mReceiver;
+    IntentFilter filter;
     TextView rootDescription, adsBlocker, songCounter;
     LinearLayout leftLayout, rightLayout;
     SharedPreferences sharedPreferences;
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void registerReceiver(){
-        IntentFilter filter = new IntentFilter();
+        filter = new IntentFilter();
         filter.addAction("com.spotify.music.playbackstatechanged");
         filter.addAction("com.spotify.music.metadatachanged");
         filter.addAction("com.spotify.music.queuechanged");
@@ -136,16 +137,22 @@ public class MainActivity extends AppCompatActivity {
             public void onReceive(Context arg0, Intent intent) {
                 String action = intent.getAction();
 
-                String trackId = intent.getStringExtra("id");
+                String trackId;
+                trackId = intent.getStringExtra("id");
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("trackId", trackId);
+                editor.apply();
                 String artistName = intent.getStringExtra("artist");
                 String albumName = intent.getStringExtra("album");
                 String trackName = intent.getStringExtra("track");
 
+
                 //Do something with the data
+                Toast.makeText(MainActivity.this, "TrackMA " + trackId, Toast.LENGTH_LONG).show();
+                Log.d("DDD", "MA " + trackId);
 
             }
         };
-        registerReceiver(mReceiver, filter);
 
     }
 
@@ -169,6 +176,8 @@ public class MainActivity extends AppCompatActivity {
         }
         adsBlocker.setText("Ads blocked :- " + (sharedPreferences.getInt("adsCounter", 0))/2);
         songCounter.setText("Song Count :- " + sharedPreferences.getInt("songCounter", 0));
+
+        registerReceiver(mReceiver, filter);
     }
 
     private boolean isNotificationServiceEnabled() {
@@ -192,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d("DDD", "onPause " + mReceiver);
         unregisterReceiver(mReceiver);
     }
 }
