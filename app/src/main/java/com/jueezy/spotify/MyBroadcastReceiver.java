@@ -26,8 +26,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         long timeSentInMs = intent.getLongExtra("timeSent", 0L);
 
         String action = intent.getAction();
-        Toast.makeText(context, "Track " + timeSentInMs , Toast.LENGTH_LONG).show();
-        Log.d("DDD", "Yyyyyyyy" );
+
 
         if (action.equals(BroadcastTypes.METADATA_CHANGED)) {
             String trackId = intent.getStringExtra("id");
@@ -36,8 +35,10 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             String trackName = intent.getStringExtra("track");
             int trackLengthInSec = intent.getIntExtra("length", 0);
             // Do something with extracted information...
-            Toast.makeText(context, "Track " + trackId, Toast.LENGTH_LONG).show();
-            Log.d("DDD", "Yyyyyyyy" + trackId);
+
+            Toast.makeText(context, "TrackBR " + trackId, Toast.LENGTH_LONG).show();
+            Log.d("DDD", "BR" + trackId);
+
         } else if (action.equals(BroadcastTypes.PLAYBACK_STATE_CHANGED)) {
             boolean playing = intent.getBooleanExtra("playing", false);
             int positionInMs = intent.getIntExtra("playbackPosition", 0);
@@ -46,4 +47,5 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             // Sent only as a notification, your app may want to respond accordingly.
         }
     }
+
 }
