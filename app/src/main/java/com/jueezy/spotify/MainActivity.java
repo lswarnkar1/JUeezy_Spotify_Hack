@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         sw2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 /*if (RootAccess.hasRootAccess()){
+                //TODO
                 }*/
 
                 if (isChecked) {
@@ -140,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 String trackName = intent.getStringExtra("track");
 
                 //Do something with the data
+
             }
         };
         registerReceiver(mReceiver, filter);
