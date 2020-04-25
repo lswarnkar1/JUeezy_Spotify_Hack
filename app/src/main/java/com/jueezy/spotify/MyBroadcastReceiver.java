@@ -36,8 +36,8 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             int trackLengthInSec = intent.getIntExtra("length", 0);
             // Do something with extracted information...
 
-            Toast.makeText(context, "TrackBR " + trackId, Toast.LENGTH_LONG).show();
-            Log.d("DDD", "BR" + trackId);
+            /*Toast.makeText(context, "TrackBR " + trackId, Toast.LENGTH_LONG).show();
+            Log.d("DDD", "BR" + trackId);*/
 
         } else if (action.equals(BroadcastTypes.PLAYBACK_STATE_CHANGED)) {
             boolean playing = intent.getBooleanExtra("playing", false);
