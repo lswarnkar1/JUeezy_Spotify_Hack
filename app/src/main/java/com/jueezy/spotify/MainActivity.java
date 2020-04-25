@@ -138,22 +138,27 @@ public class MainActivity extends AppCompatActivity {
                 String action = intent.getAction();
 
                 String trackId;
+                trackId = sharedPreferences.getString("id", "lets see");
+                Log.d("DDD", "MA1 " + trackId);
+                Toast.makeText(MainActivity.this, "out " + trackId, Toast.LENGTH_SHORT).show();
+                if (trackId == null){
+                    trackId = intent.getStringExtra("id");
+                    Log.d("DDD", "MA2 " + trackId);
+                    SharedPreferences.Editor editor1 = sharedPreferences.edit();
+                    editor1.putString("id", trackId);
+                    editor1.apply();
+                    trackId = sharedPreferences.getString("id", "---");
+                    Toast.makeText(MainActivity.this, "In If " + trackId, Toast.LENGTH_SHORT).show();
+                }
+
                 trackId = intent.getStringExtra("id");
+                /*Log.d("DDD", "MAB " + trackId);*/
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("trackId", trackId);
+                editor.putString("id", trackId);
                 editor.apply();
-                String artistName = intent.getStringExtra("artist");
-                String albumName = intent.getStringExtra("album");
-                String trackName = intent.getStringExtra("track");
-
-
-                //Do something with the data
-                Toast.makeText(MainActivity.this, "TrackMA " + trackId, Toast.LENGTH_LONG).show();
-                Log.d("DDD", "MA " + trackId);
-
             }
         };
-
+        registerReceiver(mReceiver, filter);
     }
 
     @Override
