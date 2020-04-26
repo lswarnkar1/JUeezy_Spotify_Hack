@@ -141,8 +141,8 @@ public class MainActivity extends AppCompatActivity {
 
                 String trackId;
                 trackId = sharedPreferences.getString("id", "lets see");
-                Log.d("DDD", "MA1 " + trackId);
-                Toast.makeText(MainActivity.this, "out " + trackId, Toast.LENGTH_SHORT).show();
+                Log.d("DDD", "MA1 " + trackId );
+                //Toast.makeText(MainActivity.this, "out " + trackId , Toast.LENGTH_SHORT).show();
                 if (trackId == null){
                     trackId = intent.getStringExtra("id");
                     Log.d("DDD", "MA2 " + trackId);
@@ -152,12 +152,16 @@ public class MainActivity extends AppCompatActivity {
                     trackId = sharedPreferences.getString("id", "---");
                     /*Toast.makeText(MainActivity.this, "In If " + trackId, Toast.LENGTH_SHORT).show();*/
                 }
-
                 trackId = intent.getStringExtra("id");
                 /*Log.d("DDD", "MAB " + trackId);*/
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("id", trackId);
                 editor.apply();
+
+                if (trackId != null){
+                    Log.d("DD", "MA ping");
+                    NotificationListenerService.pingMe(getApplicationContext());
+                }
             }
         };
         registerReceiver(mReceiver, filter);
@@ -213,6 +217,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d("DDD", "onPause " + mReceiver);
-        unregisterReceiver(mReceiver);
+        //unregisterReceiver(mReceiver);
     }
 }
