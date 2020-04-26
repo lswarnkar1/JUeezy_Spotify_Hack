@@ -29,11 +29,21 @@ public class NotificationListenerService extends android.service.notification.No
         songCounter = sharedPreferences.getInt("songCounter", 0);
 
         String pack = sbn.getPackageName();
-        String currentSong = sbn.getNotification().extras.getCharSequence("android.text").toString();
-        currentSong = sharedPreferences.getString("currentSong", "");
-        String newSong = sbn.getNotification().extras.getCharSequence("android.text").toString();
+        String previousSong = sharedPreferences.getString("previousSong", "");;
+        String newSong = sharedPreferences.getString("previousSong", "");;
+        try {
+                previousSong = sharedPreferences.getString("previousSong", "");
+                Log.d("DDDD", "previous "+ previousSong);
+        } catch (NullPointerException ignored){
 
-        Log.d("DC", "Mute On ^_^");
+        }
+        try {
+                newSong = sbn.getNotification().extras.getCharSequence("android.text").toString();
+                Log.d("DDDD", "newSong1 "+ newSong);
+            } catch (NullPointerException ignored){
+
+        }
+        pingMe(getApplicationContext());
 
         if (RootUtil.isDeviceRooted() && isKill) {
 
@@ -58,17 +68,19 @@ public class NotificationListenerService extends android.service.notification.No
         }
 
         if (isMute) {
-            Log.d("DC", "Mute On ^_^");
-            Toast.makeText(this, "Mute Option", Toast.LENGTH_SHORT).show();
+           /* Log.d("DC", "Mute On ^_^");
+            Toast.makeText(this, "Mute Option", Toast.LENGTH_SHORT).show();*/
             if (pack.equals("com.spotify.music")) {
 
-                if (newSong.equals(currentSong)) {
+                if (newSong.equals(previousSong)) {
+                    Log.d("DDDD", "Equal");
                     SharedPreferences.Editor editor = sharedPreferences.edit();     // play & Pause
-                    editor.putString("currentSong", currentSong);
+                    editor.putString("previousSong", previousSong);
                     editor.apply();
                 } else {
+                    Log.d("DDDD", "UnEqual");
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("currentSong", newSong);                      // Next & Previous
+                    editor.putString("previousSong", newSong);                      // Next & Previous
                     editor.putInt("songCounter", songCounter + 1);
                     editor.apply();
                 }
@@ -84,6 +96,12 @@ public class NotificationListenerService extends android.service.notification.No
                     Muter.unMute(getApplicationContext());
             }
         }
+    }
+
+    public static void pingMe(Context context){
+        /*Log.d("DD", "NLC ping");
+        Toast.makeText(context, "Pingwa", Toast.LENGTH_SHORT).show();*/
+        return;
     }
 
 }
