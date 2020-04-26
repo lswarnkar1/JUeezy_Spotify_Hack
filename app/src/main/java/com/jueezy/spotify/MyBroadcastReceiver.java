@@ -20,19 +20,12 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // This is sent with all broadcasts, regardless of type. The value is taken from
-        // System.currentTimeMillis(), which you can compare to in order to determine how
-        // old the event is.
-        long timeSentInMs = intent.getLongExtra("timeSent", 0L);
 
         String action = intent.getAction();
 
 
         if (action.equals(BroadcastTypes.METADATA_CHANGED)) {
             String trackId = intent.getStringExtra("id");
-            String artistName = intent.getStringExtra("artist");
-            String albumName = intent.getStringExtra("album");
-            String trackName = intent.getStringExtra("track");
             int trackLengthInSec = intent.getIntExtra("length", 0);
             // Do something with extracted information...
 
