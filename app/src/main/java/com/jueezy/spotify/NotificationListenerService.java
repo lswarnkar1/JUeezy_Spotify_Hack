@@ -58,8 +58,8 @@ public class NotificationListenerService extends android.service.notification.No
         }
 
         if (isMute) {
-            /*Log.d("DC", "Mute On ^_^");
-            Toast.makeText(this, "Mute Option", Toast.LENGTH_SHORT).show();*/
+            Log.d("DC", "Mute On ^_^");
+            Toast.makeText(this, "Mute Option", Toast.LENGTH_SHORT).show();
             if (pack.equals("com.spotify.music")) {
 
                 if (newSong.equals(currentSong)) {
