@@ -141,8 +141,8 @@ public class MainActivity extends AppCompatActivity {
 
                 String trackId;
                 trackId = sharedPreferences.getString("id", "lets see");
-                /*Log.d("DDD", "MA1 " + trackId);
-                Toast.makeText(MainActivity.this, "out " + trackId, Toast.LENGTH_SHORT).show();*/
+                Log.d("DDD", "MA1 " + trackId);
+                Toast.makeText(MainActivity.this, "out " + trackId, Toast.LENGTH_SHORT).show();
                 if (trackId == null){
                     trackId = intent.getStringExtra("id");
                     Log.d("DDD", "MA2 " + trackId);
