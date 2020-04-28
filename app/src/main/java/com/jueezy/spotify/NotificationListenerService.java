@@ -72,7 +72,7 @@ public class NotificationListenerService extends android.service.notification.No
            /* Log.d("DC", "Mute On ^_^");
             Toast.makeText(this, "Mute Option", Toast.LENGTH_SHORT).show();*/
             if (pack.equals("com.spotify.music")) {
-
+                Toast.makeText(this, "Mute Option", Toast.LENGTH_SHORT).show();
                 if (newSong.equals(previousSong)) {
                     Log.d("DDDD", "Equal");
                     SharedPreferences.Editor editor = sharedPreferences.edit();     // play & Pause
